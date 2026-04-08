@@ -15,16 +15,16 @@
 - Success Rate: 95%+
 
 #### Path 2 (Wrong Logic):
-- Điều kiện: Ambiguous/Unclear request
+- Điều kiện: Ambiguous/Unclear request với từ ngữ địa phương
 - AI Logic: Keyword matching → Empty result → Return 0
-- **Problem:** Lack of semantic understanding
-- **Fix:** Add intent classifier (NLU model)
+- **Problem:** Lack of semantic understanding & synonym dictionary
+- **Fix:** Add intent classifier (NLU model) + synonym mapping
 
-#### Path 3 (Wrong Interpretation):
-- Điều kiện: Request similar to different intent
+#### Path 3 (Out of Scope):
+- Điều kiện: Request ngoài phạm vi tài chính
 - AI Logic: Wrong intent matched → Wrong data retrieved
-- **Problem:** Lack of context/confirmation
-- **Fix:** Add confirmation step when confidence < threshold
+- **Problem:** Lack of scope guardrails
+- **Fix:** Add out-of-scope detection + graceful redirection
 
 #### Path 4 (Crisis):
 - Điều kiện: Correct result BUT no explanation

@@ -16,11 +16,12 @@ Phân tích User Journey của AI trong ứng dụng Quản Lý Chi Tiêu Moni, 
 - Đặc điểm: Có đủ training data, logic rõ ràng
 
 ### Path 2-3 - Thất Bại ❌
-- **Nguyên nhân:** Thiếu NLP/semantic understanding
+- **Path 2:** Thiếu NLP/semantic understanding cho từ ngữ địa phương
+- **Path 3:** Thiếu guardrails xử lý yêu cầu out-of-scope
 - Cách sửa:
-  - Thêm synonym dictionary (vd: "linh tính" = "misc/khác")
+  - Thêm synonym dictionary (vd: "linh tinh" = "misc/khác")
   - Improve Intent Recognition (hiểu ý, không chỉ keyword)
-  - Add Fallback Logic (khi không chắc chắn)
+  - Add guardrails cho scope management
 
 ### Path 4 - Khủng Hoảng 🚨
 - **Nguyên nhân:** Thiếu Explainability (XAI - eXplainable AI)

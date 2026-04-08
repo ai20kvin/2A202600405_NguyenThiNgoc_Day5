@@ -1,107 +1,20 @@
-# As-Is vs To-Be Recommendations
+# As-is workflow
 
-## 📊 Comparison Matrix
-
-### Path 2 - Scenario Analysis
-
-#### As-Is (Hiện Tại):
-```
-User Input: "Báo cao tổng chi tiêu trong nước cho những việc linh tính"
-
-Processing:
-1. Search for category "linh tính" → NOT FOUND
-2. Match keywords → No exact match
-3. Return: Total = 0 ❌
-
-User Experience: 😞 Confusing, AI seems broken
-```
-
-#### To-Be (Nên Cải Thiện):
-```
-User Input: "Báo cao tổng chi tiêu trong nước cho những việc linh tính"
-
-Processing:
-1. Semantic Understanding: "linh tính" ≈ "miscellaneous/other"
-2. Check synonyms: "khác", "misc", "linh tính"  
-3. Retrieve data from "Misc" category
-4. Return: Total = $150 ✅
-5. Explain: "Found in 'Misc' category (including: xxx, yyy)"
-
-User Experience: 😊 Works as expected, makes sense
-```
+| Bước | Hoạt động (As-is) | Kết quả/Vấn đề |
+|------|-------------------|----------------|
+| **B1: Nhận câu hỏi** | User hỏi "Tiền linh tinh năm nay". | Hệ thống ghi nhận từ khóa "linh tinh". |
+| **B2: Tra cứu** | AI quét trong danh mục (Category) có tên là "linh tinh". | Lỗi: Không tìm thấy danh mục này trong hệ thống. |
+| **B3: Xử lý số liệu** | AI thấy không có dữ liệu khớp. | Trả về giá trị mặc định là 0. |
+| **B4: Phản hồi** | Chatbot trả lời: "Số tiền = 0". | Hậu quả: User thấy sai, mất tin tưởng. |
 
 ---
 
-## 🔄 To-Be Process Flow
+# To-be Workflow – Thêm, Bớt, Đổi
 
-### Improved AI Logic:
-
-```mermaid
-graph TD
-    A[User Input] --> B[NLU: Intent Recognition]
-    B --> C{Confidence Score}
-    C -->|High > 0.8| D[Direct Query]
-    C -->|Medium 0.5-0.8| E[Show Options]
-    C -->|Low < 0.5| F[Ask Clarification]
-    
-    D --> G[Retrieve Data]
-    E --> H[User Selects]
-    F --> I[Reformulate Request]
-    
-    H --> G
-    I --> B
-    
-    G --> J[Generate Explanation]
-    J --> K[Format & Return]
-    K --> L[Show to User]
-    L --> M[Feedback Loop]
-    M -->|Correct| N[Learn & Improve]
-    M -->|Wrong| O[Store as Edge Case]
-```
-
----
-
-## 💰 Business Impact
-
-### Current State (As-Is):
-- **User Satisfaction:** ⭐⭐⭐ (3/5)
-- **Error Rate:** 25-30%
-- **Trust Score:** Low
-- **Churn Risk:** High ⚠️
-
-### Improved State (To-Be):
-- **User Satisfaction:** ⭐⭐⭐⭐⭐ (5/5)
-- **Error Rate:** <5%
-- **Trust Score:** High ✓
-- **Retention:** Improved +40%
-
----
-
-## 🎯 Development Roadmap
-
-### Phase 1 (Week 1):
-- [ ] Build synonym dictionary (100+ entries)
-- [ ] Add intent classifier
-- [ ] Implement confidence scoring
-
-### Phase 2 (Week 2-3):
-- [ ] Add explanation layer
-- [ ] Build user feedback mechanism
-- [ ] A/B test with 10% users
-
-### Phase 3 (Week 4+):
-- [ ] Deploy to all users
-- [ ] Monitor KPIs (satisfaction, errors, trust)
-- [ ] Iterate based on real usage data
-
----
-
-## 📈 Success Metrics
-
-| Metric | Current | Target | Timeline |
-|--------|---------|--------|----------|
-| Accuracy | 70% | 95%+ | Week 2 |
-| User Satisfaction | 3/5 | 4.5/5 | Week 3 |
-| Error Recovery Rate | 0% | 90% | Week 4 |
-| Explainability Score | N/A | 8/10 | Week 4 |
-
+| Bước | Hành động của Hệ thống | Mục tiêu | Cải tiến so với As-is |
+|------|------------------------|----------|----------------------|
+| **1. Tiếp nhận & Phân tích ý định** | User hỏi "Tiền linh tinh năm nay". AI nhận diện "linh tinh" là một khái niệm mở (không phải category cứng). | Hiểu ý định thực sự của người dùng thay vì chỉ khớp từ khóa. | Đổi: Từ "Khớp từ khóa" sang "Hiểu ngữ nghĩa". |
+| **2. Truy vấn & Đề xuất tiêu chí** | AI phản hồi: "Tôi không có mục riêng là 'linh tinh'. Bạn có muốn tôi gom các khoản dưới 100k và các khoản chưa phân loại vào nhóm này không?" | Thiết lập một 'luật chơi' chung giữa AI và User. | Thêm: Cơ chế xác nhận tiêu chí trước khi tính toán. |
+| **3. Truy xuất đa tầng (RAG)** | Quét các khoản < 100k + Mục "Khác" + Giao dịch nội dung mơ hồ. | Tìm kiếm dữ liệu tiềm năng dựa trên tiêu chí đã thống nhất. | Thêm: Khả năng quét sâu vào nội dung giao dịch. |
+| **4. Ước tính & Minh bạch hóa** | Tính tổng và hiển thị: "Ước tính khoảng 1,5tr. Con số này dựa trên 25 giao dịch nháp." | Tránh kết quả bằng 0 và giải thích nguồn gốc con số. | Đổi: Từ "Con số chết" sang "Con số giải trình". |
+| **5. Đối thoại & Hiệu chỉnh** | Cung cấp nút [Xem danh sách] hoặc [Điều chỉnh mức chi tiêu]. User có thể đổi từ <100k thành <50k. | Cho người dùng kiểm soát tối cao đối với dữ liệu của họ. | Thêm: Vòng lặp phản hồi (Feedback loop) để AI học cho lần sau. |
